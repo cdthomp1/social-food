@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+<div class="login-box">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="login">Log In</h3>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <input type="text" class="form-control" id="emailLogin" placeholder="Email Address">
+        <small id="emailHelp" class="form-text text-muted float-right">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="paswordLogin" placeholder="Password">
+      </div>
+      <div class="button-box">
+        <a href="/register" class="btn btn-primary reg-btn">Need an Account?</a>
+        <a href="#" class="btn btn-primary login-btn">Login</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <% include ../partials/scripts.ejs %>
+
+</body>
+
+</html>
