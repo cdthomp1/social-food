@@ -31,15 +31,15 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 
-async function getUsers() {
+function getUsers() {
   const sql = "SELECT user_id, user_name, user_email, user_password FROM social_user";
-  var users = await pool.query(sql, function (err, result) {
+  var users =  pool.query(sql, async function (err, result) {
     // If an error occurred...
     if (err) {
       console.log("Error in query: ")
       console.log(err);
     } else {
-      var results = result.rows
+      var results = await result.rows
       return results;
     }
   });
