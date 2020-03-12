@@ -19,6 +19,7 @@ app.get('/login', (req, res) => { res.render('pages/login')
 app.get('/login-succ', (req, res) => { 
   
   var email = req.query.email;
+  var password = req.query.password
   console.log(email);
 
   //getUsers();
