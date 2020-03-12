@@ -44,7 +44,7 @@ function getUsers(email, password) {
     } else {
       var res = JSON.stringify(result.rows);
       console.log(res);
-      console.log(typeof(res));
+      console.log(JSON.parse(result.rows));
     }
 
 
