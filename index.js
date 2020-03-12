@@ -20,9 +20,7 @@ app.get('/login-succ', (req, res) => {
   
   var email = req.query.email;
   var password = req.query.password
-  console.log(email);
-
-  //getUsers();
+  getUsers(email, password);
   res.render('pages/login-succ')
 })
 app.get('/register', (req, res) => res.render('pages/register'))
@@ -32,13 +30,13 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 
-function getUsers(id) {
+function getUsers(email, password) {
 
-  const sql = "SELECT user_id, user_name, user_email, user_password FROM social_user WHERE user_id = $1::int";
+  const sql = "SELECT user_id, user_name, user_email, user_password FROM social_user";
 
-  const params = [id];
 
-  pool.query(sql, params, function (err, result) {
+
+  pool.query(sql, function (err, result) {
     // If an error occurred...
     if (err) {
       console.log("Error in query: ")
