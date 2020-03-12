@@ -52,7 +52,9 @@ function getUsers(email, password) {
         console.log(user.user_email === email)
         console.log(user.user_password === password)
         if (user.user_email === email && user.user_password === password) {
+          console.log(logedIn);
           logedIn = true;
+          console.log(logedIn);
         }
       })
     }
