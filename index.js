@@ -39,7 +39,7 @@ function getUsers(email, password) {
       console.log(err);
     } else {
       var res = JSON.stringify(result.rows);
-      console.log(res.length);
+      console.log(res.json());
     }
   });
 }
