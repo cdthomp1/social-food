@@ -14,10 +14,12 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 app.get('/login', (req, res) => { res.render('pages/login') 
-  getUsers(1);
 
 })
-app.get('/login-succ', (req, res) => res.render('pages/login-succ'))
+app.get('/login-succ', (req, res) => { 
+  getUsers();
+  res.render('pages/login-succ', params)
+})
 app.get('/register', (req, res) => res.render('pages/register'))
 app.get('/public', (req, res) => res.render('pages/public'))
 app.get('/personal', (req, res) => res.render('pages/personal'))
@@ -27,7 +29,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 function getUsers(id) {
 
-  const sql = "SELECT user_id, user_name FROM social_user WHERE user_id = $1::int";
+  const sql = "SELECT user_id, user_name, user_email, user_password FROM social_user WHERE user_id = $1::int";
 
   const params = [id];
 
