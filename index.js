@@ -31,11 +31,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 function getUsers(email, password) {
-
   const sql = "SELECT user_id, user_name, user_email, user_password FROM social_user";
-
-
-
   pool.query(sql, function (err, result) {
     // If an error occurred...
     if (err) {
@@ -43,11 +39,7 @@ function getUsers(email, password) {
       console.log(err);
     } else {
       var res = JSON.stringify(result.rows);
-      console.log(res);
-      console.log(JSON.parse(result.rows));
+      console.log(res.length);
     }
-
-
   });
-
 }
