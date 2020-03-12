@@ -20,8 +20,8 @@ app.get('/login-succ', (req, res) => {
   
   var email = req.query.email;
   var password = req.query.password
-  var users = getUsers();
-  checkIfExist(email, password, users)
+  getUsers().then(checkIfExist(email, password, result))
+  
   res.render('pages/login-succ')
 })
 app.get('/register', (req, res) => res.render('pages/register'))
