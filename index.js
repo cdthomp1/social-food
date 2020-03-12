@@ -39,7 +39,7 @@ function getUsers() {
       console.log("Error in query: ")
       console.log(err);
     } else {
-      var results = await result.rows
+      var results = result.rows
       return results;
     }
   });
