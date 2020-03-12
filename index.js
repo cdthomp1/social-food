@@ -38,8 +38,7 @@ function getUsers(email, password) {
       console.log("Error in query: ")
       console.log(err);
     } else {
-      console.log(result);
-      var res = JSON.stringify(result.rows);
+      console.log(result.rows);
     }
   });
 }
