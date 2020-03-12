@@ -38,7 +38,11 @@ function getUsers(email, password) {
       console.log("Error in query: ")
       console.log(err);
     } else {
-      console.log(result.rows);
+      var res = result.rows
+
+      res.forEach(result => {
+        console.log(result.user_id);
+      })
     }
   });
 }
