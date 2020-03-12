@@ -24,7 +24,7 @@ app.get('/login-succ', (req, res) => {
   var password = req.query.password
   getUsers(email,password);
 
-  if (logedIn) {
+  if (logedIn === true) {
     var params = {
       userEmail: email
     }
