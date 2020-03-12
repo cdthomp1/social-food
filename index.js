@@ -20,7 +20,8 @@ app.get('/login-succ', (req, res) => {
   
   var email = req.query.email;
   var password = req.query.password
-  getUsers(email, password);
+  var users = getUsers();
+  checkIfExist(email, password, users)
   res.render('pages/login-succ')
 })
 app.get('/register', (req, res) => res.render('pages/register'))
@@ -30,19 +31,23 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 
-function getUsers(email, password) {
+async function getUsers() {
   const sql = "SELECT user_id, user_name, user_email, user_password FROM social_user";
-  pool.query(sql, function (err, result) {
+  var users = await pool.query(sql, function (err, result) {
     // If an error occurred...
     if (err) {
       console.log("Error in query: ")
       console.log(err);
     } else {
-      var res = result.rows
-
-      res.forEach(result => {
-        console.log(result.user_id);
-      })
+      var results = result.rows
+      return results;
     }
   });
+
+  return users;
+}
+
+
+function checkIfExist(username, password, users) {
+  console.log(username, password, users);
 }
