@@ -41,9 +41,15 @@ function getUsers(email, password) {
     if (err) {
       console.log("Error in query: ")
       console.log(err);
+    } else {
+      console.log("Found result: " + JSON.stringify(result.rows))
+      var res = JSON.stringify(result.rows);
+
+      res.forEach(element => {
+        console.log(element);
+      });
     }
 
-    console.log("Found result: " + JSON.stringify(result.rows))
 
   });
 
