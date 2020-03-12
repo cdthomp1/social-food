@@ -17,6 +17,10 @@ app.get('/login', (req, res) => { res.render('pages/login')
 
 })
 app.get('/login-succ', (req, res) => { 
+  
+  var email = req.query.email;
+  console.log(email);
+
   //getUsers();
   res.render('pages/login-succ')
 })
