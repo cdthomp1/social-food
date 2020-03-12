@@ -49,6 +49,8 @@ function getUsers(email, password) {
     } else {
       var results = result.rows
       results.forEach(user => {
+        console.log(user.user_email === email)
+        console.log(user.user_password === password)
         if (user.user_email === email && user.user_password === password) {
           logedIn = true;
         }
