@@ -9,6 +9,8 @@ const pool = new Pool({ connectionString: connectionString });
 
 var app = express();
 
+var logedIn = false;
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -20,9 +22,15 @@ app.get('/login-succ', (req, res) => {
   
   var email = req.query.email;
   var password = req.query.password
-  getUsers().then(checkIfExist(email, password, result))
+  getUsers(email,password);
+
+  if (logedIn) {
+    var params = {
+      userEmail: email
+    }
+    res.render('pages/login-succ', params)
+  }
   
-  res.render('pages/login-succ')
 })
 app.get('/register', (req, res) => res.render('pages/register'))
 app.get('/public', (req, res) => res.render('pages/public'))
@@ -31,20 +39,22 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 
-function getUsers() {
+function getUsers(email, password) {
   const sql = "SELECT user_id, user_name, user_email, user_password FROM social_user";
-  var users =  pool.query(sql, async function (err, result) {
+  pool.query(sql, async function (err, result) {
     // If an error occurred...
     if (err) {
       console.log("Error in query: ")
       console.log(err);
     } else {
       var results = result.rows
-      return results;
+      results.forEach(user => {
+        if (user.user_email === email && user.user_password === password) {
+          logedIn = true;
+        }
+      })
     }
   });
-
-  return users;
 }
 
 
