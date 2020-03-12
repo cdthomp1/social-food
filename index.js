@@ -17,6 +17,7 @@ app.get('/login', (req, res) => { res.render('pages/login')
   getUsers(1);
 
 })
+app.get('/login-succ', (req, res) => res.render('pages/login-succ'))
 app.get('/register', (req, res) => res.render('pages/register'))
 app.get('/public', (req, res) => res.render('pages/public'))
 app.get('/personal', (req, res) => res.render('pages/personal'))
