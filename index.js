@@ -15,53 +15,19 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
-app.get('/login', (req, res) => { res.render('pages/login') 
-
-})
-app.get('/login-succ', async (req, res) => { 
-  
-  var email = req.query.email;
-  var password = req.query.password
-  await getUsers(email, password);
-
-  if (logedIn === true) {
-    var params = {
-      userEmail: email
-    }
-    res.render('pages/login-succ', params)
-  }
-  
-})
+app.get('/login', (req, res) => { res.render('pages/login')})
 app.get('/register', (req, res) => res.render('pages/register'))
 app.get('/public', (req, res) => res.render('pages/public'))
 app.get('/personal', (req, res) => res.render('pages/personal'))
+app.get('/api/v1/getUsers', (request, response) => {
+  pool.query('SELECT * FROM social_user ORDER BY user_id ASC', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+});
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
 
-function getUsers(email, password) {
-  const sql = "SELECT user_id, user_name, user_email, user_password FROM social_user";
-  pool.query(sql, async function (err, result) {
-    // If an error occurred...
-    if (err) {
-      console.log("Error in query: ")
-      console.log(err);
-    } else {
-      var results = result.rows
-      results.forEach(user => {
-        console.log(user.user_email === email)
-        console.log(user.user_password === password)
-        if (user.user_email === email && user.user_password === password) {
-          console.log(logedIn);
-          logedIn = true;
-          console.log(logedIn);
-        }
-      })
-    }
-  });
-}
-
-
-function checkIfExist(username, password, users) {
-  console.log(username, password, users);
-}
