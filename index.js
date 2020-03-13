@@ -11,7 +11,7 @@ var app = express();
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-app.get('/', (req, res) => res.render('pages/index.html'))
+app.get('/', (req, res) => res.render('pages/index'))
 app.get('/login', (req, res) => { res.render('pages/login')})
 app.get('/register', (req, res) => res.render('pages/register'))
 app.get('/public', (req, res) => res.render('pages/public'))
