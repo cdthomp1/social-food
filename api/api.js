@@ -4,7 +4,7 @@ const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString: connectionString });
 
 const getUsers = (request, response) => {
-  pool.query('SELECT * FROM social_users ORDER BY id ASC', (error, results) => {
+  pool.query('SELECT * FROM social_user ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error
     }
