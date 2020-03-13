@@ -18,11 +18,11 @@ app.get('/', (req, res) => res.render('pages/index'))
 app.get('/login', (req, res) => { res.render('pages/login') 
 
 })
-app.get('/login-succ', (req, res) => { 
+app.get('/login-succ', async (req, res) => { 
   
   var email = req.query.email;
   var password = req.query.password
-  getUsers(email,password);
+  await getUsers(email, password);
 
   if (logedIn === true) {
     var params = {
