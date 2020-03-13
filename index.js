@@ -20,7 +20,7 @@ app.get('/personal', (req, res) => res.render('pages/personal'))
 //API 
 app.get('/api/v1/getUsers', api.getUsers);
 
-app.get('/users/:id', db.getUserById)
+app.get('/users/:id', api.getUserById)
 
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`))
