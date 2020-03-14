@@ -13,10 +13,11 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("demo").innerHTML = this.responseText;
+                var res = JSON.parse(this.responseText);
+                console.log(res.data)
             }
         };
-        xhttp.open("GET", "https://aqueous-badlands-80050.herokuapp.com/api/v1/recipes", true);
+        xhttp.open("GET", "/api/v1/recipes", true);
         xhttp.send();
     }
 </script>
