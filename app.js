@@ -4,8 +4,13 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
+const path = require('path');
+
 
 const app = express();
+
+//Set Up the Assets Folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Passport Config
 require('./config/passport')(passport);
@@ -25,6 +30,7 @@ mongoose
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
+
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
