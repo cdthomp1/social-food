@@ -1,4 +1,4 @@
-.jumbotron{
+.jumbotron {
     background-image: url('/images/header.jpg');
     background-size: cover;
     color: white;
@@ -12,4 +12,46 @@
 
 .my-4 {
     border-bottom: 1px solid white;
+}
+
+
+.recipeContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.recCard {
+    margin: 3px;
+    width: 15rem;
+}
+
+#addRecHead {
+    text-align: center;
+}
+
+.addRec {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.addRecCard {
+    width: 50%;
+    margin: 6px;
+}
+
+.previewRecCard {
+    width: 50%;
+    margin: 6px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.previewRec {
+    width: 20rem;
 }

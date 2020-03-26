@@ -1,0 +1,141 @@
+<h1 id="addRecHead">Add a Recipe!</h1>
+<div class="addRec">
+
+    <div class=" addRecCard">
+        <div class="form-group">
+            <label for="recNameInput">Recipe Name</label>
+            <input type="text" class="form-control" id="recNameInput" placeholder="Recipe Name"
+                onchange="genPreview(this.id)"> <br />
+
+            <label for="recAuthorInput">Recipe Author</label>
+            <input type="text" class="form-control" id="recAuthorInput" placeholder="Recipe Author"
+                onchange="genPreview(this.id)">
+            <small id="authorHelp" class="form-text text-muted">If the recipe is from a website, add the name of the
+                website
+                with the author name. (John Doe, foodnetwork.com)</small><br />
+
+            <label for="recImageInput">Image</label><br />
+            <input type="file" name="recImg" placeholder="Recipe Image"><br />
+            <br />
+            <label for="recCategoryInput">Category</label>
+            <select class="form-control" id="recCategoryInput" onchange="genPreview(this.id)">
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Dinner</option>
+                <option>Snacks</option>
+                <option>Appitizer</option>
+                <option>Drinks</option>
+                <option>Dessert</option>
+                <option>Salad</option>
+            </select>
+            <br>
+            <div id="ingredients">
+                <label for="recIngredientInput">Ingredent(s)</label>
+                <input type="text" class="form-control" id="recIngredientInput" placeholder="Ingredient and Ammount">
+                <small id="authorHelp" class="form-text text-muted">Ex: 1/2 Cup All-Purpose Flour</small>
+            </div>
+            <button type="button" id="ingredient" class="btn btn-outline-info" onclick="addIngredientInput()">Another
+                Ingredient!</button>
+            <br />
+            <div id="directions">
+                <label for="recDirectionInput">Direction(s)</label>
+                <input type="text" class="form-control" id="recDirectionInput" placeholder="Direction">
+                <small id="authorHelp" class="form-text text-muted">Ex: Add flour to a mixing bowl</small>
+                <br />
+            </div>
+            <button type="button" id="direction" class="btn btn-outline-info" onclick="addDirectionInput()">Another
+                Direction!</button>
+            <p>&nbsp;</p>
+        </div>
+    </div>
+
+
+    <div class="previewRecCard">
+        <h2>Recipe Preview</h2>
+        <div class="card previewRec">
+            <img src="/images/header.jpg" id="headerImage" class="card-img-top">
+            <h3 id="recName">Rec Name</h3>
+            <h4 id="recAuthor">Rec Author</h4>
+            <p id="recCategory">Category</p>
+            <ul id="ingredientList">
+            </ul>
+            <ol id="directionList">
+            </ol>
+            <div id="confirm">
+                <button onclick="addToDatabase()" class="btn btn-info">Confirm Recipe</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var recipeObj = {
+        "recName": "",
+        "author": "",
+        "category": "",
+        "ingredients": [],
+        "directions": []
+    }
+    var ingredients = [];
+    var directions = [];
+    var category;
+    var author;
+    var recName;
+
+    function genPreview(id) {
+        var value = document.getElementById(id).value;
+
+        var previewId = id.split(/Input/);
+
+        if (id.includes('Name')) {
+            recName = value;
+        } else if(id.includes('Author')) {
+            author = value;
+        } else if(id.includes("Category")) {
+            category = value;
+        }
+
+        var previewTitle = document.getElementById(previewId[0]);
+        previewTitle.innerText = value;
+    }
+
+    function addIngredientInput() {
+
+        var ingredient = document.getElementById("recIngredientInput").value;
+
+        var ul = document.getElementById("ingredientList");
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(ingredient));
+        ul.appendChild(li);
+
+        ingredients.push(ingredient);
+
+        document.getElementById("recIngredientInput").value = "";
+    }
+
+    function addDirectionInput() {
+
+        var direction = document.getElementById("recDirectionInput").value;
+
+
+        var ol = document.getElementById("directionList");
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(direction));
+        ol.appendChild(li);
+
+        directions.push(direction);
+
+        document.getElementById("recDirectionInput").value = "";
+    }
+
+    function addToDatabase() {
+       recipeObj.recName = recName;
+       recipeObj.author = author;
+       recipeObj.category = category;
+       recipeObj.ingredients = ingredients;
+       recipeObj.directions = directions;
+       
+       
+    }
+</script>
