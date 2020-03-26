@@ -70,18 +70,12 @@
 </div>
 
 <script>
-    var recipeObj = {
-        "recName": "",
-        "author": "",
-        "category": "",
-        "ingredients": [],
-        "directions": []
-    }
-    var ingredients = [];
-    var directions = [];
-    var category;
-    var author;
-    var recName;
+    
+    var Ingredients = [];
+    var Directions = [];
+    var Category;
+    var Author;
+    var Name;
 
     function genPreview(id) {
         var value = document.getElementById(id).value;
@@ -89,11 +83,11 @@
         var previewId = id.split(/Input/);
 
         if (id.includes('Name')) {
-            recName = value;
+            Name = value;
         } else if(id.includes('Author')) {
-            author = value;
+            Author = value;
         } else if(id.includes("Category")) {
-            category = value;
+            Category = value;
         }
 
         var previewTitle = document.getElementById(previewId[0]);
@@ -109,7 +103,7 @@
         li.appendChild(document.createTextNode(ingredient));
         ul.appendChild(li);
 
-        ingredients.push(ingredient);
+        Ingredients.push(ingredient);
 
         document.getElementById("recIngredientInput").value = "";
     }
@@ -124,18 +118,26 @@
         li.appendChild(document.createTextNode(direction));
         ol.appendChild(li);
 
-        directions.push(direction);
+        Directions.push(direction);
 
         document.getElementById("recDirectionInput").value = "";
     }
 
     function addToDatabase() {
-       recipeObj.recName = recName;
-       recipeObj.author = author;
-       recipeObj.category = category;
-       recipeObj.ingredients = ingredients;
-       recipeObj.directions = directions;
+        var recipeObj = {
+        recName: name,
+        author: Author,
+        category: Category,
+        ingredients: Ingredients,
+        directions: Directions
+    }
        
-       
+        console.log(recipeObj);
+        var xhttp = new XMLHttpRequest();
+
+
+        xhttp.open("POST", "/api/v1/recipes", true);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify(recipeObj));
     }
 </script>

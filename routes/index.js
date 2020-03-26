@@ -10,7 +10,7 @@ router.get('/dasboard', forwardAuthenticated, (req, res) => res.render('unauth')
 router.get('/', (req, res) => res.render('login'));
 router.get('/public', (req, res) => res.render('publicRecs'));
 router.get('/about', (req, res) => res.render('construction'));
-router.get('/addRec', (req, res) => res.render('addRec'));
+router.get('/addRec', ensureAuthenticated, (req, res) => res.render('addRec'));
 
 
 // Dashboard

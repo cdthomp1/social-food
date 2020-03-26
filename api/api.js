@@ -5,7 +5,7 @@ const { getRecipes, getRecipeById, addRecipe, deleteRecipe } = require('../contr
 router
     .route('/recipes/')
     .get(getRecipes)
-    .post(addRecipe);
+    .post(addRecipe)
 
 router
     .route('/recipes/:id')

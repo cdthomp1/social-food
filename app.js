@@ -34,6 +34,7 @@ app.set('view engine', 'ejs');
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Express session
 app.use(
