@@ -24,7 +24,7 @@ const RecipeSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        defualt: Date.now
+        defualt: Date.now()
     }
 });
 

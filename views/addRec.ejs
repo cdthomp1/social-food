@@ -125,14 +125,15 @@
 
     function addToDatabase() {
         var recipeObj = {
-        recName: name,
+        recName: Name,
         author: Author,
         category: Category,
         ingredients: Ingredients,
         directions: Directions
     }
        
-        console.log(recipeObj);
+        console.log(typeof(recipeObj));
+
         var xhttp = new XMLHttpRequest();
 
 
