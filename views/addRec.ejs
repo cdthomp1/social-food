@@ -1,6 +1,6 @@
 <h1 id="addRecHead">Add a Recipe!</h1>
 <div class="addRec">
-
+<form action="/api/v1/recipes" method="post">
     <div class=" addRecCard">
         <div class="form-group">
             <label for="recNameInput">Recipe Name</label>
@@ -14,8 +14,6 @@
                 website
                 with the author name. (John Doe, foodnetwork.com)</small><br />
 
-            <label for="recImageInput">Image</label><br />
-            <input type="file" name="recImg" placeholder="Recipe Image"><br />
             <br />
             <label for="recCategoryInput">Category</label>
             <select class="form-control" id="recCategoryInput" onchange="genPreview(this.id)">
@@ -53,7 +51,7 @@
     <div class="previewRecCard">
         <h2>Recipe Preview</h2>
         <div class="card previewRec">
-            <img src="/images/header.jpg" id="headerImage" class="card-img-top">
+            <img src="/image/a0d9d104ee13dc4b01478b77a98a38dc.jpg" id="headerImage" class="card-img-top">
             <h3 id="recName">Rec Name</h3>
             <h4 id="recAuthor">Rec Author</h4>
             <p id="recCategory">Category</p>
@@ -62,11 +60,11 @@
             <ol id="directionList">
             </ol>
             <div id="confirm">
-                <button onclick="addToDatabase()" class="btn btn-info">Confirm Recipe</button>
+                <button type="submit" class="btn btn-info">Confirm Recipe</button>
             </div>
         </div>
     </div>
-
+</form>
 </div>
 
 <script>
