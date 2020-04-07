@@ -76,6 +76,12 @@ router.post('/register', (req, res) => {
   }
 });
 
+
+// Get Fav Recipe
+router.get('/favs', (req, res, next) => {
+  
+})
+
 // Login
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
