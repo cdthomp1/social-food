@@ -10,6 +10,9 @@ const RecipeSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please Enter Recipe Name']
     },
+    image: {
+        type: Object
+    },
     category : {
         type: String,
         required: [true, "Please Enter a Category"]

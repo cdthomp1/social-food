@@ -1,4 +1,4 @@
-const express = require('express');
+/* const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const crypto = require('crypto');
@@ -54,7 +54,8 @@ const upload = multer({ storage });
 
 // @route GET /
 // @desc Loads form
-/* app.get('/', (req, res) => {
+ app.get('/', (req, res) => {
+   console.log('Here in images')
   gfs.files.find().toArray((err, files) => {
     // Check if files
     if (!files || files.length === 0) {
@@ -73,13 +74,14 @@ const upload = multer({ storage });
       res.render('index', { files: files });
     }
   });
-}); */
+});
 
 // @route POST /upload
 // @desc  Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
   // res.json({ file: req.file });
-  res.redirect('/');
+  //res.redirect('/');0
+  console.log({ file: req.file })
 });
 
 // @route GET /files
@@ -136,6 +138,5 @@ app.delete('/files/:id', (req, res) => {
   });
 });
 
-const port = 5000;
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+module.exports = router; */

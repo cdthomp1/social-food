@@ -2,6 +2,7 @@
 <div class="addRec">
     <div class=" addRecCard">
         <div class="form-group">
+
             <label for="recNameInput">Recipe Name</label>
             <input type="text" class="form-control" id="recNameInput" placeholder="Recipe Name"
                 onchange="genPreview(this.id)"> <br />
@@ -14,6 +15,8 @@
                 with the author name. (John Doe, foodnetwork.com)</small><br />
 
             <br />
+            <label for="recAuthorInput">Recipe Image</label>
+            <input type="file" class="form-control" name="image" id="recImageInput" placeholder="Upload Image of Food">
             <label for="recCategoryInput">Category</label>
             <select class="form-control" id="recCategoryInput" onchange="genPreview(this.id)">
                 <option>Breakfast</option>
@@ -43,6 +46,7 @@
             <button type="button" id="direction" class="btn btn-outline-info" onclick="addDirectionInput()">Another
                 Direction!</button>
             <p>&nbsp;</p>
+
         </div>
     </div>
 
@@ -52,6 +56,11 @@
         <div class="card previewRec">
             <h3 id="recName">Rec Name</h3>
             <h4 id="recAuthor">Rec Author</h4>
+            <div class="image-preview" id="imagePreview">
+                <img src="" alt="Image Preview" class="image-preview__image">
+                <span class="image-preview__default-text">Image Preview</span>
+
+            </div>
             <p id="recCategory">Category</p>
             <ul id="ingredientList">
             </ul>
@@ -65,28 +74,60 @@
 </div>
 
 <script>
-    
     var Ingredients = [];
     var Directions = [];
+    var image;
     var Category;
     var Author;
     var Name;
+
+
+    var inpImage = document.getElementById('recImageInput');
+    var imgPreviewContainer = document.getElementById('imagePreview');
+    var previewImage = imgPreviewContainer.querySelector(".image-preview__image");
+    var previewDefaultText = imgPreviewContainer.querySelector(".image-preview__default-text");
+
+    inpImage.addEventListener("change", function () {
+        const file = this.files[0];
+        image = this.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            previewDefaultText.style.display = 'none';
+            previewImage.style.display = 'block';
+
+
+            reader.addEventListener("load", function () {
+                console.log(this);
+                previewImage.setAttribute('src', this.result);
+            });
+
+            reader.readAsDataURL(file);
+        } else {
+            previewDefaultText.style.display = 'block';
+            previewImage.style.display = 'none';
+        }
+    });
 
     function genPreview(id) {
         var value = document.getElementById(id).value;
 
         var previewId = id.split(/Input/);
+        var previewTitle = document.getElementById(previewId[0]);
 
         if (id.includes('Name')) {
             Name = value;
-        } else if(id.includes('Author')) {
+            previewTitle.innerText = value;
+
+        } else if (id.includes('Author')) {
+            previewTitle.innerText = value;
             Author = value;
-        } else if(id.includes("Category")) {
+        } else if (id.includes("Category")) {
+            previewTitle.innerText = value;
             Category = value;
         }
 
-        var previewTitle = document.getElementById(previewId[0]);
-        previewTitle.innerText = value;
     }
 
     function addIngredientInput() {
@@ -118,21 +159,52 @@
         document.getElementById("recDirectionInput").value = "";
     }
 
-    function addToDatabase() {
-        var recipeObj = {
-        recName: Name,
-        author: Author,
-        category: Category,
-        ingredients: Ingredients,
-        directions: Directions
+    async function addImage(file) {
+        console.log(file)
+        var recImage = {
+            id: "",
+            name: ""
+        };
+
+        const endpoint = '/image/upload';
+        const formData = new FormData();
+
+        formData.append("image", file);
+
+        await fetch(endpoint, {
+                method: 'post',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                recImage.id = data.file.id;
+                recImage.name = data.file.filename;
+            })
+            .catch(console.error)
+
+        return recImage;
     }
-       
-        console.log(typeof(recipeObj));
+
+    async function addToDatabase() {
+
+        var imageRes = await addImage(image);
+
+    
+         var recipeObj = {
+            recName: Name,
+            author: Author,
+            image: imageRes,
+            category: Category,
+            ingredients: Ingredients,
+            directions: Directions
+        }
+
+        console.log(typeof (recipeObj));
 
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/api/v1/recipes", true);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify(recipeObj));
-        window.location.replace("/public");
+        window.location.replace("/public"); 
     }
 </script>
