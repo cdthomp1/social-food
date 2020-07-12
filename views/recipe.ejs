@@ -1,23 +1,13 @@
-<div class="recipeContainer">
-</div>
-<script>
-    function loadDoc() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var res = JSON.parse(this.responseText);
-                displayRecs(res.data);
-            }
-        };
-        xhttp.open("GET", "/api/v1/recipes", true);
-        xhttp.send();
-    }
+<p class="hidden" id="recId"><%= recipe %></p>
+<div class="recipeContainer"></div>
 
-    function displayRecs(recs) {
-        recs.forEach(rec => {
-            buildRecCard(rec);
-        });
-    }
+<script>
+    const id = document.getElementById('recId').innerText
+    console.log(document.getElementById('recId').innerText)
+
+    fetch(`/api/v1/recipes/${id}`)
+        .then(response => response.json())
+        .then(data => buildRecCard(data.data));
 
     function buildRecCard(rec) {
         var container = document.getElementsByClassName("recipeContainer")[0];
@@ -25,11 +15,11 @@
         var cardBody = document.createElement("div");
         var recname = document.createElement("h5");
         var recAuthor = document.createElement("p");
-        /* var recIngList = document.createElement("ul");
-         var recDirList = document.createElement("ol"); */
+        var recIngList = document.createElement("ul");
+        var recDirList = document.createElement("ol");
         var recImage = document.createElement("img");
 
-        /* rec.ingredients.forEach(ing => {
+        rec.ingredients.forEach(ing => {
             var recIng = document.createElement("li");
             recIng.innerText = ing;
             recIngList.appendChild(recIng);
@@ -39,16 +29,15 @@
             var recDir = document.createElement("li");
             recDir.innerHTML = dir;
             recDirList.appendChild(recDir);
-        }) */
+        })
 
         card.setAttribute("class", "card recCard");
         card.setAttribute("id", rec._id)
-        card.setAttribute("onclick", "viewRec(this.id)")
         cardBody.setAttribute("class", "card-body");
         recname.setAttribute("class", "card-title");
-        recImage.setAttribute('src', `image/${rec.image.name}`);
+        recImage.setAttribute('src', `/image/${rec.image.name}`);
         recImage.setAttribute('class', "image-preview-card");
-        recImage.setAttribute('laoding', "lazy");
+
 
         recname.innerText = rec.recName;
         recAuthor.innerText = rec.author;
@@ -58,22 +47,12 @@
         cardBody.appendChild(recImage);
         cardBody.appendChild(recname);
         cardBody.appendChild(recAuthor);
-        /*cardBody.appendChild(recIngList);
-        cardBody.appendChild(recDirList); */
+        cardBody.appendChild(recIngList);
+        cardBody.appendChild(recDirList);
 
         card.appendChild(cardBody);
 
         container.appendChild(card);
 
     }
-
-    loadDoc();
-
-    function viewRec(id) {
-        console.log(`Click this id: ${id}`);
-
-        window.location.href = `/recipe/${id}`;
-    }
-
-
 </script>

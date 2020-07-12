@@ -25,7 +25,8 @@
 
 .recCard {
     margin: 3px;
-    width: 15rem;
+    width: 500px;
+    cursor: pointer;
 }
 
 #addRecHead {
@@ -53,7 +54,7 @@
 }
 
 .previewRec {
-    width: 20rem;
+    width: 400px;
 }
 
 .image-preview {
@@ -71,8 +72,8 @@
 }
 
 .image-preview-card {
-    width: 100%;
-    max-height: 100%;
+    width: 400px;
+    height: 300px;
     border: 2px solid #dddddd;
     margin-top: 15px;
     align-self: center;
@@ -87,4 +88,8 @@
 .image-preview__image {
     display: none;
     width: 100%;
+}
+
+.hidden {
+    display: none;
 }

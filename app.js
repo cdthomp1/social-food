@@ -70,6 +70,7 @@ app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 //app.use('/images', require('./routes/images.js'))
 app.use('/api/v1', require('./api/api'));
+app.use('/recipe', require('./routes/recipe'));
 
 const PORT = process.env.PORT || 7472;
 
@@ -158,7 +159,6 @@ app.get('/image/:filename', (req, res) => {
 // @route POST /upload
 // @desc  Uploads file to DB
 app.post('/image/upload', upload.single('image'), (req, res) => {
-  console.log({ file: req.file })
   res.json({ file: req.file });
   //res.redirect('/');
 });
