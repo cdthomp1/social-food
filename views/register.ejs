@@ -1,13 +1,12 @@
-<div class="row mt-5">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
-      <h1 class="text-center mb-3">
+<div class="register-container">
+    <div class="register-card">
+      <h1>
         <i class="fas fa-user-plus"></i> Register
       </h1>
       <% include ./partials/messages %>
       <form action="/users/register" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
+        <div>
+          <label for="name">Name</label><br>
           <input
             type="name"
             id="name"
@@ -17,8 +16,8 @@
             value="<%= typeof name != 'undefined' ? name : '' %>"
           />
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
+        <div>
+          <label for="email">Email</label><br>
           <input
             type="email"
             id="email"
@@ -28,8 +27,8 @@
             value="<%= typeof email != 'undefined' ? email : '' %>"
           />
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
+        <div>
+          <label for="password">Password</label><br>
           <input
             type="password"
             id="password"
@@ -39,8 +38,8 @@
             value="<%= typeof password != 'undefined' ? password : '' %>"
           />
         </div>
-        <div class="form-group">
-          <label for="password2">Confirm Password</label>
+        <div>
+          <label for="password2">Confirm Password</label><br>
           <input
             type="password"
             id="password2"
@@ -50,11 +49,9 @@
             value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
           />
         </div>
-        <button type="submit" class="btn btn-primary btn-block">
-          Register
-        </button>
+        <button type="submit" class="btn register-btn">Register</button>
       </form>
-      <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+      <p>Have An Account? <a href="/users/login">Login</a></p>
     </div>
   </div>
-</div>
+
