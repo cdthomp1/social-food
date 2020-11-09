@@ -189,8 +189,7 @@ body{
 
 .recCard {
     margin: 3px;
-    width: 500px;
-    cursor: pointer;
+    width: 15rem;
 }
 
 .add-rec-form input {
@@ -242,7 +241,7 @@ body{
 }
 
 .previewRec {
-    width: 400px;
+    width: 20rem;
 }
 
 .image-preview {
@@ -260,8 +259,8 @@ body{
 }
 
 .image-preview-card {
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    max-height: 100%;
     border: 2px solid #dddddd;
     margin-top: 15px;
     align-self: center;
@@ -276,8 +275,4 @@ body{
 .image-preview__image {
     display: none;
     width: 100%;
-}
-
-.hidden {
-    display: none;
 }

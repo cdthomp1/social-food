@@ -44,6 +44,7 @@ exports.addRecipe = async (req, res, next) => {
         const { author, recName, directions, ingredients } = req.body;
 
         const recipe = await Recipe.create(req.body);
+        console.log("HELLO THERE I AM HERE!");
         return res.status(201).json({
             success: true,
             data: recipe
