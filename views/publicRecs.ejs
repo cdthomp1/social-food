@@ -41,14 +41,14 @@
             recDirList.appendChild(recDir);
         }) */
 
-        card.setAttribute("class", "card recCard");
+        card.setAttribute("class", "card recCard mb-3");
         card.setAttribute("id", rec._id)
         card.setAttribute("onclick", "viewRec(this.id)")
         cardBody.setAttribute("class", "card-body");
         recname.setAttribute("class", "card-title");
         recImage.setAttribute('src', `image/${rec.image.name}`);
         recImage.setAttribute('class', "image-preview-card");
-        recImage.setAttribute('laoding', "lazy");
+        recImage.setAttribute('loading', "lazy");
 
         recname.innerText = rec.recName;
         recAuthor.innerText = rec.author;
