@@ -1,183 +1,19 @@
-html {
-    font-family: 'Varela Round', sans-serif;
-}
-
-body{ 
-    margin: auto;
-    width: 55%;
-}
-
-.hide {
-    display: none;
-}
-
-.navbar {
-    background-color: #26547c;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 80px;
-    width: 100%;
-}
-
-.navbar-brand {
-    font-size: 45px;
-    margin: 16px;
-}
-
-.brand{
-    margin-top: 10px;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-}
-
-.navbar a:hover{
-    color: #58a4b0;
-}
-
-.nav-items, .login {
-    margin-top: 10px;
-}
-
-
-.navbar ul {
-    list-style: none;
-}
-
-.navbar li {
-    display: inline;
-    font-size: 20px;
-    margin: 15px;
-}
-
-.btn {
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-}
-
-.btn:hover{
-    color: #58a4b0;
-}
-
-.start{
-    border: 1px solid #06d6a0;
-}
-
 .jumbotron {
     background-image: url('/images/header.jpg');
     background-size: cover;
     color: white;
     width: 100%;
-    
 }
 
 .text-container {
     background-color: rgba(0, 0, 0, 0.733);
-    margin: auto;
+    padding: 10px;
 }
 
-.text-header, .text-footer{
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.text-header h1 {
-    font-size: 65px;
-    margin-bottom: 5px;
-}
-
-.divider {
+.my-4 {
     border-bottom: 1px solid white;
-    width: 75%
 }
 
-
-.content-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.content-text {
-    width: 50%;
-}
-
-.content-img {
-    background-image: url('/images/recipes.jpg');
-    background-size: cover;
-    color: white;
-    width: 50%;
-    height: 400px;
-}
-
-.login-container, .register-container{
-    width: 55%;
-    margin: auto;
-}
-.login-card, .register-container {
-    margin-top: 10%;
-    border: 3px solid black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.login-card input{
-    width: 250px;
-    height: 25px;
-    font-size: 20px;
-    margin: 10px 0 10px 0;
-}
-
-.register-container input{
-    width: 250px;
-    height: 25px;
-    font-size: 20px;
-    margin: 10px 0 10px 0;
-}
-
-.login-btn, .register-btn { 
-    color: #26547c;
-    border: 1px solid #58a4b0;
-    background-color: white;
-    align-self: center;
-    cursor: pointer;
-}
-
-.dashboard-btn {
-    color: #26547c;
-    border: 1px solid #58a4b0;
-    background-color: white;
-    align-self: center;
-    cursor: pointer;
-    font-size: 25px;
-}
-
-.alert-danger {
-    color: #ef476f;
-    border: 2px solid #ef476f;
-    padding: 5px;
-    font-size: 14px;
-    margin: 5px;
-}
-
-.alert-success {
-    color: #06d6a0;
-    border: 2px solid #06d6a0;
-    padding: 5px;
-    font-size: 14px;
-    margin: 5px;
-}
 
 .recipeContainer {
     display: flex;
@@ -189,7 +25,8 @@ body{
 
 .recCard {
     margin: 3px;
-    width: 15rem;
+    width: 500px;
+    cursor: pointer;
 }
 
 #addRecHead {
@@ -205,16 +42,11 @@ body{
 .addRecCard {
     width: 50%;
     margin: 6px;
-    display: flex;
-    flex-direction: column;
 }
 
-.add-rec-btn {
-    color: #26547c;
-    border: 1px solid #58a4b0;
-    background-color: white;
-    align-self: center;
-    cursor: pointer;
+
+.thirdParty{ 
+    background-color: aquamarine;
 }
 
 .previewRecCard {
@@ -227,7 +59,7 @@ body{
 }
 
 .previewRec {
-    width: 20rem;
+    width: 400px;
 }
 
 .image-preview {
@@ -245,8 +77,8 @@ body{
 }
 
 .image-preview-card {
-    width: 100%;
-    max-height: 100%;
+    width: 400px;
+    height: 300px;
     border: 2px solid #dddddd;
     margin-top: 15px;
     align-self: center;
@@ -261,4 +93,8 @@ body{
 .image-preview__image {
     display: none;
     width: 100%;
+}
+
+.hidden {
+    display: none;
 }

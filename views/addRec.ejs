@@ -16,7 +16,8 @@
 
             <br />
             <label for="recAuthorInput">Recipe Image</label><br>
-            <input type="file" class="form-control" name="image" id="recImageInput" placeholder="Upload Image of Food"><br>
+            <input type="file" class="form-control" name="image" id="recImageInput"
+                placeholder="Upload Image of Food"><br>
             <label for="recCategoryInput">Category</label><br>
             <select class="form-control" id="recCategoryInput" onchange="genPreview(this.id)">
                 <option>Breakfast</option>
@@ -31,7 +32,8 @@
             <br>
             <div id="ingredients">
                 <label for="recIngredientInput">Ingredent(s)</label><br>
-                <input type="text" class="form-control" id="recIngredientInput" placeholder="Ingredient and Ammount"><br>
+                <input type="text" class="form-control" id="recIngredientInput"
+                    placeholder="Ingredient and Ammount"><br>
                 <small id="authorHelp" class="form-text text-muted">Ex: 1/2 Cup All-Purpose Flour</small>
             </div>
             <button type="button" id="ingredient" class="btn add-rec-btn" onclick="addIngredientInput()">Another
@@ -51,6 +53,12 @@
 
 
     <div class="previewRecCard">
+        <div class="thirdParty">
+            <h3>
+                Have a recipe form another site?
+            </h3>
+            <p>Click <a href="">Here</a></p>
+        </div>
         <h2>Recipe Preview</h2>
         <div class="card previewRec">
             <h3 id="recName">Rec Name</h3>
@@ -188,8 +196,8 @@
 
         var imageRes = await addImage(image);
 
-    
-         var recipeObj = {
+
+        var recipeObj = {
             recName: Name,
             author: Author,
             image: imageRes,
@@ -204,6 +212,6 @@
         xhttp.open("POST", "/api/v1/recipes", true);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify(recipeObj));
-        window.location.replace("/public"); 
+        window.location.replace("/public");
     }
 </script>
