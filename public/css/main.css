@@ -87,6 +87,10 @@
     display: none;
     width: 100%;
 }
+.recCard {
+    width: 30%;
+}
+
 
 .hidden {
     display: none;
@@ -115,6 +119,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .recCard {
+        width: 75%;
     }
 
   }
