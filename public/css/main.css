@@ -192,20 +192,6 @@ body{
     width: 15rem;
 }
 
-.add-rec-form input {
-    width: 250px;
-    height: 25px;
-    font-size: 15px;
-    margin: 10px 0 10px 0;
-}
-
-.add-rec-form select {
-    width: 252px;
-    height: 25px;
-    font-size: 15px;
-    margin: 10px 0 10px 0;
-}
-
 #addRecHead {
     text-align: center;
 }
