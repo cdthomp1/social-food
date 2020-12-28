@@ -1,0 +1,87 @@
+<h1 id="addRecHead">Add a Recipe from Another Site!</h1>
+<% include ./partials/messages %>
+<div class="card text-white bg-dark mb-3 thirdParty" style="max-width: 20rem;">
+    <input type="url" name="url" id="url" placeholder="https://www.recipetineats.com/potatoes-au-gratin/" /><button
+        class="btn btn-success" onclick="sendUrl()">Add!</button>
+</div>
+<div>
+    <h3>Supported Sites</h3>
+    <div id="supported">
+        <p><a href="https://www.101cookbooks.com/" target="_blank">https://www.101cookbooks.com/</a></p>
+        <p><a href="https://www.allrecipes.com/" target="_blank">https://www.allrecipes.com/</a></p>
+        <p><a href="https://www.ambitiouskitchen.com/" target="_blank">https://www.ambitiouskitchen.com/</a></p>
+        <p><a href="https://www.averiecooks.com/" target="_blank">https://www.averiecooks.com/</a></p>
+        <p><a href="https://www.bbc.co.uk/" target="_blank">https://www.bbc.co.uk/</a></p>
+        <p><a href="https://www.bbcgoodfood.com/" target="_blank">https://www.bbcgoodfood.com/</a></p>
+        <p><a href="https://www.bonappetit.com/" target="_blank">https://www.bonappetit.com/</a></p>
+        <p><a href="https://www.budgetbytes.com/" target="_blank">https://www.budgetbytes.com/</a></p>
+        <p><a href="https://www.centraltexasfoodbank.org/" target="_blank">https://www.centraltexasfoodbank.org/</a></p>
+        <p><a href="https://www.closetcooking.com/" target="_blank">https://www.closetcooking.com/</a></p>
+        <p><a href="https://cookieandkate.com/" target="_blank">https://cookieandkate.com/</a></p>
+        <p><a href="https://copykat.com/" target="_blank">https://copykat.com/</a></p>
+        <p><a href="https://damndelicious.net/" target="_blank">https://damndelicious.net/</a></p>
+        <p><a href="http://www.eatingwell.com/" target="_blank">http://www.eatingwell.com/</a></p>
+        <p><a href="https://www.epicurious.com/" target="_blank">https://www.epicurious.com/</a></p>
+        <p><a href="https://www.food.com/" target="_blank">https://www.food.com/</a></p>
+        <p><a href="https://www.foodandwine.com/" target="_blank">https://www.foodandwine.com/</a></p>
+        <p><a href="https://www.foodnetwork.com/" target="_blank">https://www.foodnetwork.com/</a></p>
+        <p><a href="http://www.gimmesomeoven.com/" target="_blank">http://www.gimmesomeoven.com/</a></p>
+        <p><a href="https://www.kitchenstories.com/" target="_blank">https://www.kitchenstories.com/</a></p>
+        <p><a href="https://www.minimalistbaker.com/" target="_blank">https://www.minimalistbaker.com/</a></p>
+        <p><a href="https://www.myrecipes.com/" target="_blank">https://www.myrecipes.com/</a></p>
+        <p><a href="https://www.nomnompaleo.com/" target="_blank">https://www.nomnompaleo.com/</a></p>
+        <p><a href="https://www.omnivorescookbook.com/" target="_blank">https://www.omnivorescookbook.com/</a></p>
+        <p><a href="https://pinchofyum.com/" target="_blank">https://pinchofyum.com/</a></p>
+        <p><a href="https://recipetineats.com/" target="_blank">https://recipetineats.com/</a></p>
+        <p><a href="https://www.seriouseats.com/" target="_blank">https://www.seriouseats.com/</a></p>
+        <p><a href="https://www.simplyrecipes.com/" target="_blank">https://www.simplyrecipes.com/</a></p>
+        <p><a href="https://smittenkitchen.com/" target="_blank">https://smittenkitchen.com/</a></p>
+        <p><a href="https://thepioneerwoman.com/" target="_blank">https://thepioneerwoman.com/</a></p>
+        <p><a href="https://tastesbetterfromscratch.com/" target="_blank">https://tastesbetterfromscratch.com/</a></p>
+        <p><a href="https://therealfoodrds.com/" target="_blank">https://therealfoodrds.com/</a></p>
+        <p><a href="https://www.thespruceeats.com/" target="_blank">https://www.thespruceeats.com/</a></p>
+        <p><a href="https://whatsgabycooking.com/" target="_blank">https://whatsgabycooking.com/</a></p>
+        <p><a href="https://www.woolworths.com.au/" target="_blank">https://www.woolworths.com.au/</a></p>
+        <p><a href="https://www.yummly.com/" target="_blank">https://www.yummly.com/</a></p>
+    </div>
+</div>
+
+<script>
+    function sendUrl() {
+        var recUrl = {
+            url: document.getElementById('url').value
+        };
+
+        console.log(recUrl)
+
+        if (!recUrl.url) {
+            alert('Please Enter a Url')
+        } else if (!validURL(recUrl.url)) {
+            alert('Please Enter a Valid Url')
+        } else {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", `/api/v1/otherrecipe`, true);
+            xhttp.setRequestHeader('Content-type', 'application/json');
+            xhttp.send(JSON.stringify(recUrl));
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    window.location.replace("/public");
+                }
+            };
+            
+        }
+
+
+
+    }
+
+    function validURL(str) {
+        var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        return !!pattern.test(str);
+    }
+</script>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getRecipes, getRecipeById, addRecipe, deleteRecipe } = require('../controllers/recipe-controller');
+const { getRecipes, getRecipeById, addRecipe, deleteRecipe, addOtherRec } = require('../controllers/recipe-controller');
 
 
 router
@@ -12,6 +12,10 @@ router
     .route('/recipes/:id')
     .get(getRecipeById)
     .delete(deleteRecipe)
+
+router
+    .route('/otherrecipe/')
+    .post(addOtherRec)
 
 
 module.exports = router;

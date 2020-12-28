@@ -6,6 +6,9 @@ const RecipeSchema = new mongoose.Schema({
         trim: true,
         required: [true, 'Please Enter Recipe Author']
     },
+    sourceUrl: {
+        type: String
+    },
     recName: {
         type: String,
         required: [true, 'Please Enter Recipe Name']

@@ -11,6 +11,8 @@ router.get('/', (req, res) => res.render('publicRecs', {user: req.user }));
 router.get('/public', (req, res) => res.render('publicRecs', {user: req.user }));
 router.get('/about', (req, res) => res.render('construction', {user: req.user }));
 router.get('/addRec', ensureAuthenticated, (req, res) => res.render('addRec', {user: req.user }));
+router.get('/other', ensureAuthenticated, (req, res) => res.render('other', {user: req.user }));
+
 
 
 // Dashboard

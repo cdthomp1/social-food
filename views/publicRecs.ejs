@@ -6,6 +6,7 @@
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var res = JSON.parse(this.responseText);
+                console.log(res)
                 displayRecs(res.data);
             }
         };
@@ -41,12 +42,17 @@
             recDirList.appendChild(recDir);
         }) */
 
-        card.setAttribute("class", "card recCard mb-3");
+        card.setAttribute("class", "card publicRecCard mb-3");
         card.setAttribute("id", rec._id)
         card.setAttribute("onclick", "viewRec(this.id)")
         cardBody.setAttribute("class", "card-body");
         recname.setAttribute("class", "card-title");
-        recImage.setAttribute('src', `image/${rec.image.name}`);
+        if(rec.image.name) {
+            recImage.setAttribute('src', `image/${rec.image.name}`);
+        } else {
+            recImage.setAttribute('src', `${rec.image}`);
+        }
+        
         recImage.setAttribute('class', "image-preview-card");
         recImage.setAttribute('loading', "lazy");
 

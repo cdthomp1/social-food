@@ -87,8 +87,15 @@
     display: none;
     width: 100%;
 }
-.recCard {
+.publicRecCard {
     width: 30%;
+}
+.recCard {
+    width: 70%;
+}
+
+.recCard ol li {
+    margin: 7px 0 7px 0;
 }
 
 
@@ -96,10 +103,18 @@
     display: none;
 }
 
+#supported {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+}
+
+
+
 @media only screen and (max-width: 600px) {
-    body {
-      background-color: lightblue;
-    }
+    
 
     .addRec {
         display: flex;
