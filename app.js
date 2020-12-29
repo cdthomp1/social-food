@@ -10,6 +10,9 @@ const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 const crypto = require('crypto');
+require('dotenv').config()
+
+const connectDB =  require('./config/db.js');
 
 
 const app = express();
@@ -21,16 +24,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('./config/passport')(passport);
 
 // DB Config
-const db = require('./config/keys').MogoURI;
+const db = process.env.MONGO_URI;
 
-// Connect to MongoDB
-mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+
+
+connectDB();
+
 
 // EJS
 app.use(expressLayouts);
