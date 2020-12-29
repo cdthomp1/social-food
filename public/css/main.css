@@ -32,7 +32,7 @@
 }
 
 
-.thirdParty{ 
+.thirdParty {
     margin: auto;
     text-align: center;
 }
@@ -52,8 +52,8 @@
 }
 
 .image-preview {
-        width: 100%;
-        min-height: 100px;
+    width: 100%;
+    min-height: 100px;
     border: 2px solid #dddddd;
     margin-top: 15px;
     align-self: center;
@@ -68,7 +68,7 @@
 .card {
     width: 18rem;
     cursor: pointer;
-  }
+}
 
 .image-preview-card {
     max-width: 100%;
@@ -87,9 +87,11 @@
     display: none;
     width: 100%;
 }
+
 .publicRecCard {
     width: 30%;
 }
+
 .recCard {
     width: 70%;
 }
@@ -111,10 +113,34 @@
     justify-content: space-around;
 }
 
+/************* NEW DEV *******************/
+
+.recTitle {
+    text-align: center;
+}
+
+.recBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.recIngredients .recDirections {
+    display: flex;
+    flex-direction: column;
+}
+
+.recDirections {
+    max-width: 500px;
+}
+
+#fav {
+    border: 1px solid #cccccc;
+}
 
 
 @media only screen and (max-width: 600px) {
-    
+
 
     .addRec {
         display: flex;
@@ -140,4 +166,28 @@
         width: 75%;
     }
 
-  }
+
+
+    /************* NEW DEV *******************/
+
+    .recTitle h3 {
+        font-size: 1.2rem;
+    }
+
+    .recBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+
+    .recIngredients .recDirections {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .recDirections {
+        max-width: 500px;
+    }
+
+}

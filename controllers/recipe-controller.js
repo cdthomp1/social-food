@@ -51,7 +51,6 @@ exports.addRecipe = async (req, res, next) => {
             data: recipe
         })
     } catch (error) {
-        console.log(req);
 
         if(error.name === 'ValidationError') {
             const messages = Object.values(error.errors).map(val => val.message);

@@ -4,13 +4,13 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
 const User = require('../models/User');
-const { forwardAuthenticated } = require('../config/auth');
+const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 
 // Login Page
-router.get('/login', forwardAuthenticated, (req, res) => res.render('login', {user: req.user }));
+router.get('/login', forwardAuthenticated, (req, res) => res.render('login', { user: req.user }));
 
 // Register Page
-router.get('/register', forwardAuthenticated, (req, res) => res.render('register', {user: req.user }));
+router.get('/register', forwardAuthenticated, (req, res) => res.render('register', { user: req.user }));
 
 // Register
 router.post('/register', (req, res) => {
@@ -79,7 +79,71 @@ router.post('/register', (req, res) => {
 
 // Get Fav Recipe
 router.get('/favs', (req, res, next) => {
-  
+  var favs = JSON.stringify(req.user.favRecs);
+  console.log(req.user.favRecs);
+  try {
+    return res.status(200).json({
+      success: true,
+      data: req.user.favRecs
+
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: `Error Favoring Recipe: ${error.message}`
+    })
+  }
+})
+
+// Fav a Rec
+router.put('/fav/:id', ensureAuthenticated, async (req, res, next) => {
+  try {
+    var recId = req.params.id;
+    // console.log(req.user);
+    const user = await User.findById(req.user._id)
+    if (user) {
+      console.log(user)
+      user.favRecs.push(recId);
+      await user.save();
+    }
+    return res.status(200).json({
+      success: true,
+
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: `Error Favoring Recipe: ${error.message}`
+    })
+  }
+})
+
+// unFav a Rec
+router.put('/unfav/:id', ensureAuthenticated, async (req, res, next) => {
+  try {
+    var recId = req.params.id;
+    // console.log(req.user);
+    const user = await User.findById(req.user._id)
+    if (user) {
+      console.log(user);
+      const index = user.favRecs.indexOf(recId);
+      if (index > -1) {
+        user.favRecs.splice(index, 1);
+        console.log(user);
+
+      }
+      await user.save();
+    }
+    return res.status(200).json({
+      success: true,
+
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: `Error Favoring Recipe: ${error.message}`
+    })
+  }
 })
 
 // Login

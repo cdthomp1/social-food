@@ -2,3 +2,50 @@
 <p class="l">Welcome <%= user.name %></p>
 <a href="/addRec" class="btn dashboard-btn">Add A Recipe!</a>
 <a href="/users/logout" class="btn dashboard-btn">Logout</a>
+<div id="favs"></div>
+
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var res = JSON.parse(this.responseText);
+            getFavs(res.data);
+        }
+    };
+    xhttp.open("GET", "/users/favs", true);
+    xhttp.send();
+
+    function getFavs(favs) {
+        console.log(favs)
+        var recs = [];
+
+        favs.forEach(fav => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var res = JSON.parse(this.responseText);
+                    recs.push(res.data);
+                    displayRecs(recs);
+                }
+            };
+            xhttp.open("GET", `/api/v1/recipes/${fav}`, true);
+            xhttp.send();
+        })
+
+    }
+
+    function displayRecs(recs) {
+        var html = '<h3>Favorites</h3>';
+
+        if (recs.length === 0) {
+           html += '<p>None yet, start cooking!</p>'
+        } else {
+            html += '<ul>'
+            recs.forEach(rec => {
+                html += `<li><a href="/recipe/${rec._id}">${rec.recName}</a></li>`
+            })
+            html += '</ul>';
+        }
+        document.getElementById('favs').innerHTML = html;
+    }
+</script>

@@ -1,56 +1,77 @@
 <p class="hidden" id="recId"><%= recipe %></p>
-<div class="recipeContainer"></div>
+<% if (user) {%>
+<% if (user.favRecs.includes(recipe)) { %>
+<button id="fav" class="btn btn-info" onClick="unfavRec('<%= recipe %>')">Favorite <i id="heart"
+        class="fas fa-heart"></i></button>
+<% } else { %>
+<button id="fav" class="btn btn-info" onClick="favRec('<%= recipe %>')">Favorite <i id="heart"
+        class="far fa-heart"></i></button>
+<% } %>
+<% } %>
+
+<div id="recContainer">
+
+</div>
 
 <script>
     const id = document.getElementById('recId').innerText
-    
+
     fetch(`/api/v1/recipes/${id}`)
         .then(response => response.json())
         .then(data => buildRecCard(data.data));
 
-    function buildRecCard(rec) {
-        console.log(rec)
-        var container = document.getElementsByClassName("recipeContainer")[0];
-        var card = document.createElement("div");
-        var cardBody = document.createElement("div");
-        var recname = document.createElement("h5");
-        var recAuthor = document.createElement("p");
-        var recIngList = document.createElement("ul");
-        var recDirList = document.createElement("ol");
-        var recImage = document.createElement("img");
-        rec.ingredients.forEach(ing => {
-            var recIng = document.createElement("li");
-            recIng.innerText = ing;
-            recIngList.appendChild(recIng);
-        })
-        rec.directions.forEach(dir => {
-            var recDir = document.createElement("li");
-            recDir.innerHTML = dir;
-            recDirList.appendChild(recDir);
-        })
-        card.setAttribute("class", "card recCard");
-        card.setAttribute("id", rec._id)
-        cardBody.setAttribute("class", "card-body");
-        recname.setAttribute("class", "card-title");
-        if(rec.image.name) {
-            recImage.setAttribute('src', `image/${rec.image.name}`);
+    function buildRecCard(recipe) {
+        var html = `
+        <div class="recTitle">
+            <h1>${recipe.recName}</h1>`;
+        if (recipe.sourceUrl) {
+            html += `<h3><a href="${recipe.sourceUrl}" target="_blank">${recipe.author}</a></h3>`;
         } else {
-            recImage.setAttribute('src', `${rec.image}`);
+            html += `<h3>${recipe.author}</h3>`
         }
-        recImage.setAttribute('class', "image-preview-card");
-        recname.innerText = rec.recName;
-        if(rec.sourceUrl) {
-            var recSource = `<a href="${rec.sourceUrl}" target="_blank">${rec.author}</a>`;
-            recAuthor.innerHTML = recSource;
-        } else {
-            recAuthor.innerText = rec.author;
-        }
-        cardBody.appendChild(recImage);
-        cardBody.appendChild(recname);
-        cardBody.appendChild(recAuthor);
-        cardBody.appendChild(recIngList);
-        cardBody.appendChild(recDirList);
-        card.appendChild(cardBody);
-        container.appendChild(card);
+        html += `</div>
+        <div class="recBox">
+            <div class="recIngredients">
+                <h2>Ingredients</h2> <ul>`;
+        recipe.ingredients.forEach(ing => {
+            html += `<li>${ing  }</li>`
+        });
+        html += `</ul></div>
+            <div class="recDirections">
+            <h2>Directions</h2>
+            <ol>`;
+        recipe.directions.forEach(dir => {
+            html += `<li>${dir}</li>`
+        });
+        html += `</ol></div>
+        </div>`;
+
+        document.getElementById('recContainer').innerHTML = html;
+    }
+
+    async function favRec(id) {
+
+
+        await fetch(`/users/fav/${id}`, {
+                method: 'put',
+                body: id
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('heart').className = "fas fa-heart"
+            })
+            .catch(console.error)
+    }
+
+    async function unfavRec(id) {
+        await fetch(`/users/unfav/${id}`, {
+                method: 'put',
+                body: id
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('heart').className = "far fa-heart"
+            })
+            .catch(console.error)
     }
 </script>
