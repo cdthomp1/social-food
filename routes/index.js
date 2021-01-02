@@ -5,7 +5,6 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 
 // Welcome Page
-router.get('/dasboard', forwardAuthenticated, (req, res) => res.render('unauth'));
 
 router.get('/', (req, res) => res.render('publicRecs', {user: req.user }));
 router.get('/public', (req, res) => res.render('publicRecs', {user: req.user }));
