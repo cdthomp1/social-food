@@ -1,29 +1,20 @@
-/* const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const crypto = require('crypto');
-const mongoose = require('mongoose');
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
+const crypto = require('crypto');
+const mongoose = require('mongoose');
+const express = require('express');
 const router = express.Router();
-
-const app = express();
-
-// Middleware
-app.use(bodyParser.json());
-app.use(methodOverride('_method'));
-app.set('view engine', 'ejs');
-
-// Mongo URI
-const mongoURI = 'mongodb+srv://cameronthompson:304439-ad@transactions-pez1f.mongodb.net/Social-food?retryWrites=true&w=majority';
-
-// Create mongo connection
-const conn = mongoose.createConnection(mongoURI);
+const path = require('path');
 
 // Init gfs
 let gfs;
+
+// DB Config
+const db = process.env.MONGO_URI;
+
+const conn = mongoose.createConnection(db);
 
 conn.once('open', () => {
   // Init stream
@@ -33,7 +24,7 @@ conn.once('open', () => {
 
 // Create storage engine
 const storage = new GridFsStorage({
-  url: mongoURI,
+  url: db,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       crypto.randomBytes(16, (err, buf) => {
@@ -52,13 +43,13 @@ const storage = new GridFsStorage({
 });
 const upload = multer({ storage });
 
-// @route GET /
+// @route GET /image
 // @desc Loads form
- app.get('/', (req, res) => {
-   console.log('Here in images')
+router.get('/', (req, res) => {
+  //console.log('Here in images')
   gfs.files.find().toArray((err, files) => {
     // Check if files
-    if (!files || files.length === 0) {
+    /* if (!files || files.length === 0) {
       res.render('index', { files: false });
     } else {
       files.map(file => {
@@ -72,38 +63,13 @@ const upload = multer({ storage });
         }
       });
       res.render('index', { files: files });
-    }
-  });
-});
-
-// @route POST /upload
-// @desc  Uploads file to DB
-app.post('/upload', upload.single('file'), (req, res) => {
-  // res.json({ file: req.file });
-  //res.redirect('/');0
-  console.log({ file: req.file })
-});
-
-// @route GET /files
-// @desc  Display all files in JSON
-app.get('/files', (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    // Check if files
-    if (!files || files.length === 0) {
-      return res.status(404).json({
-        err: 'No files exist'
-      });
-    }
-
-    // Files exist
-    return res.json(files);
+    } */
+    //console.log(files);
+    res.json(files)
   });
 });
 
 
-
-// @route GET /image/:filename
-// @desc Display Image
 router.get('/:filename', (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     // Check if file
@@ -126,17 +92,11 @@ router.get('/:filename', (req, res) => {
   });
 });
 
-// @route DELETE /files/:id
-// @desc  Delete file
-app.delete('/files/:id', (req, res) => {
-  gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
-    if (err) {
-      return res.status(404).json({ err: err });
-    }
-
-    res.redirect('/');
-  });
+// @route POST /upload
+// @desc  Uploads file to DB
+router.post('/upload', upload.single('image'), (req, res) => {
+  res.json({ file: req.file });
+  //res.redirect('/');
 });
 
-
-module.exports = router; */
+module.exports = router;
